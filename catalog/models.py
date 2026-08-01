@@ -1,4 +1,7 @@
 from django.db import models
+from django.conf import settings
+from datetime import date
+
 
 # Create your models here.
 
@@ -107,6 +110,8 @@ class BookInstance(models.Model):
     borrower = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
 
+    
+
     @property
     def is_overdue(self):
         """Determines if the book is overdue based on due date and current date."""
@@ -129,6 +134,7 @@ class BookInstance(models.Model):
     class Meta:
         ordering = ['due_back']
         permissions = (("can_mark_returned", "Set book as returned"),)
+        
 
     def get_absolute_url(self):
         """Returns the url to access a particular book instance."""
